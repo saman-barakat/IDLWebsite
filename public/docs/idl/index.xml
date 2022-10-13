@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>IDL on</title><link>https://saman-barakat.github.io/IDLWebsite/docs/idl/</link><description>Recent content in IDL on</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Tue, 06 Oct 2020 08:48:45 +0000</lastBuildDate><atom:link href="https://saman-barakat.github.io/IDLWebsite/docs/idl/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://saman-barakat.github.io/IDLWebsite/docs/idl/introduction/</link><pubDate>Tue, 06 Oct 2020 08:48:57 +0000</pubDate><guid>https://saman-barakat.github.io/IDLWebsite/docs/idl/introduction/</guid><description>Catalogue of inter-parameter dependencies #
 1. Requires #
-The Requires dependency is the simplest pattern. If a parameter is used (or it has a certain value), then another parameter must be used too (or be set to a certain value). PayPal example
+The Requires dependency is the simplest pattern. If a parameter is used (or it has a certain value), then another parameter must be used too (or be set to a certain value).
+PayPal example
 //PayPay-Create invoice IF custom.label THEN custom.amount;
 IF minimum_amount_due THEN allow_partial_payment==true;
 Google Map example

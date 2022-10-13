@@ -15,7 +15,6 @@ toc: true
 
 IDL dependencies can be straightforwardly specified in OAS specifications using **IDL4OAS**, an OAS extension. You just need to include the keyword **x-dependencies** at the operation level, and include the list of dependencies as an array. Take a look at this simple example:
 
-
 ```markdown
 paths:
   /example/route:
