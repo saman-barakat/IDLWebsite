@@ -1,4 +1,4 @@
-baseurl = "https://doks-child-theme.netlify.app/"
+baseurl = "https://saman-barakat.github.io/IDLWebsite/"
 canonifyURLs = false
 disableAliases = true
 disableHugoGeneratorInject = true
