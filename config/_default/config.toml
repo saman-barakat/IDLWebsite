@@ -81,3 +81,4 @@ rel  = "sitemap"
     [[related.indices]]
     name = "date"
     weight = 10
+ 
