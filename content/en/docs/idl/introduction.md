@@ -1,7 +1,7 @@
 ---
 title: "Introduction"
 description: "Doks is a Hugo theme for building secure, fast, and SEO-ready documentation websites, which you can easily update and customize."
-lead: "REST APIs often include dependency constraints that restrict how two or more parameters can be combined to form valid API calls. These inter-parameter dependencies make it difficult to automatically interact with the services, since API specification languages offer little or no support for them. We carried out a study on 40 industrial APIs and found that 85% of them contain inter-parameter dependencies. More importantly, we classified all the dependencies found (over 600) into seven patterns, serving as the basis for future proposals for modeling and analyzing inter-parameter dependencies automatically."
+lead: "REST APIs often include dependency constraints that restrict how two or more parameters can be combined to form valid API calls. These inter-parameter dependencies make it difficult to automatically interact with the services, since API specification languages offer little or no support for them. We carried out a study on 40 industrial APIs and found that 85% of them contain inter-parameter dependencies. More importantly, we classified all the dependencies found (over 600) into seven patterns, serving as the basis for future proposals for modeling and analyzing inter-parameter dependencies automatically. "
 date: 2020-10-06T08:48:57+00:00
 lastmod: 2020-10-06T08:48:57+00:00
 draft: false
