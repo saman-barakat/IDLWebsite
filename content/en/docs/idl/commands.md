@@ -17,7 +17,7 @@ toc: true
 
 ## create
 
-Create new content for your site:
+Create new content for your site: dd
 
 ```bash
 npm run create [path] [flags]
