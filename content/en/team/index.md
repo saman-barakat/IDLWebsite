@@ -77,5 +77,3 @@ images: []
     </div>
   </div>
 </div>
-
- 

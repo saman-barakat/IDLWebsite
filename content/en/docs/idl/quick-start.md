@@ -55,12 +55,6 @@ Create a new site, change directories, install dependencies, and start developme
 
 Doks is available as a child theme and a starter theme.
 
-#### Child theme
-
-- Intended for novice to intermediate users
-- Intended for minor customizations
-- [Easily update npm packages]({{< relref "how-to-update" >}}) — __including__ [Doks](https://www.npmjs.com/package/@hyas/doks)
-
 ```bash
 git clone https://github.com/h-enk/doks-child-theme.git my-doks-site
 ```
