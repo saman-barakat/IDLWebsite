@@ -56,111 +56,73 @@ IF auto_inactive THEN Accept LIKE '*application/vnd.github.ant-man-preview+json*
 
 ### 2. Or
 
-Out of two or more parameters, at least one must be used. For example, in the Flickr API, when setting the information of a photo, the documentation states: “At least one of description or title must be set”.
+Out of two or more parameters, at least one must be used. For example, in the Flickr API, when setting the information of a photo, [the documentation states](https://www.flickr.com/services/api/flickr.photos.setMeta.html): “At least one of `description` or `title` must be set”.
 
-{{< details "CityGrid example" >}}
+{{< details "IDL example" >}}
 
 ```markdown
-//CityGrid - Places Detail 
-Or(id, listing_id, infousa_id, public_id, phone);
-AllOrNone(id, id_type);
-Or(listing_id, public_id, infousa_id, phone);
-image_size_min <= image_size_max;
+Or (description, title)
 ```
 
 {{< /details >}}
 
 ### 3. OnlyOne
 
-Out of two or more parameters, one, and only one of them must be used. As an example, in the Twilio API, when sending an SMS, only one of From or MessagingServiceSid must be used: “You must also include either the From parameter or MessagingServiceSid parameter”.
+Out of two or more parameters, one, and only one of them must be used. As an example, in [the Twilio API]([https://](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource)), when sending an SMS, only one of `From` or `MessagingServiceSid` must be used: “You must also include either the `From` parameter or `MessagingServiceSid` parameter”.
 
-{{< details "Weather Company Data example" >}}
-
-```markdown
-//Weather Company Data - Search locations
-OnlyOne(geocode, postalKey, iataCode, icaoCode);
-```
-
-{{< /details >}}
-
-{{< details "Foursquare example" >}}
+{{< details "IDL example" >}}
 
 ```markdown
-//Foursquare - Search Venues
-OnlyOne(ll, near);
-IF intent=='browse' THEN OnlyOne(ll AND radius, sw AND ne);
-IF intent=='match' THEN name AND ll;
-IF radius THEN intent=='browse' OR (intent=='checkin' AND (categoryId OR query));
-AllOrNone(sw, ne);
-IF sw THEN intent=='browse';
-IF sw THEN NOT (ll OR radius);
-IF ne THEN intent=='browse';
-IF ne THEN NOT (ll OR radius);
-IF intent=='match' THEN NOT categoryId;
-AllOrNone(providerId, linkedId);
+OnlyOne (From, MessagingServiceSid)
 ```
 
 {{< /details >}}
 
 ### 4. AllOrNone
 
-Out of two or more parameters, either all of them are used, or none of them. An instance of this dependency can be found in the GitHub API, between the parameters subject_id and subject_type of the operation GET /users/{username}/hovercard, as shown in the screenshot below:
+Out of two or more parameters, either all of them are used, or none of them. An instance of this dependency can be found in [the GitHub API]([https://](https://docs.github.com/en/rest/users#get-contextual-information-for-a-user--parameters)), between the parameters `subject_id` and `subject_type` of the operation GET /users/{username}/hovercard, as shown in the screenshot below:
 
-{{< details "Stripe example" >}}
+<div class="card">
+      <img src="https://miro.medium.com/max/1400/1*0pu1fwxCItpmJw7-qD-Dyg.png" alt="AllOrNone" >
+</div>
+
+{{< details "IDL example" >}}
 
 ```markdown
-//Stripe - Create coupon
-OnlyOne(amount_off, percent_off); 
-IF amount_off THEN currency;
-AllOrNone(duration=='repeating', duration_in_months); 
+AllOrNone (subject_id, subject_type)
 ```
 
 {{< /details >}}
 
 ### 5. ZeroOrOne
 
-Out of two or more parameters, either zero or one can be used, but not more. This dependency can also be found in the YouTube search operation mentioned above, involving four input parameters forContentOwner, forDeveloper, forMine and relatedToVideoId:
+Out of two or more parameters, either zero or one can be used, but not more. This dependency can also be found in the YouTube search operation mentioned above, involving four input parameters `forContentOwner`, `forDeveloper`, `forMine` and `relatedToVideoId`:
 
-{{< details "Google example" >}}
+<div class="card">
+      <img src="https://miro.medium.com/max/1400/1*6NyO7_-O1wfAw20Nduh_0Q.png" alt="ZeroOrOne" >
+</div>
 
-```markdown
-//Google Geocoding
-OnlyOne(address OR components, latlng, place_id);
-ZeroOrOne(bounds, latlng OR place_id);
-ZeroOrOne(region, latlng OR place_id);
-ZeroOrOne(result_type, address OR components);
-ZeroOrOne(location_type, address OR components);
-```
-
-{{< /details >}}
-
-{{< details "YouTube example" >}}
+{{< details "IDL example" >}}
 
 ```markdown
-//YouTube - Get comment threads
-OnlyOne(allThreadsRelatedToChannelId, channelId, id, videoId);
-ZeroOrOne(id, moderationStatus);
-ZeroOrOne(id, order);
-ZeroOrOne(id, pageToken);
-ZeroOrOne(id, searchTerms);
-```
-
-{{< /details >}}
-
-{{< details "Tumblr example" >}}
-
-```markdown
-//Tumblr - Get blog likes
-ZeroOrOne(before, after, offset);
+ZeroOrOne (forContentOwner, forDeveloper, forMine, relatedToVideoId)
 ```
 
 {{< /details >}}
 
 ### 6. Arithmetic/Relational
 
-Two or more parameters are related by means of arithmetic (+, –, ×, ÷) or relational (<, ≤, >, ≥, =, ≠) operators. The most common shape of this dependency pattern is two parameters where one must be greater than or equal to the other, i.e., p1 ≥ p2. This happens with dates, times, IDs, prices, etc.
+Two or more parameters are related by means of arithmetic (+, –, ×, ÷) or relational (<, ≤, >, ≥, =, ≠) operators. The most common shape of this dependency pattern is two parameters where one must be greater than or equal to the other, i.e., `p1 ≥ p2`. This happens with dates, times, IDs, prices, etc.
 
-Other patterns are also possible. For example, in the Yelp API, when searching for businesses, the sum of limit + offset (parameters for paginating the results) must be less than or equal to 1000, otherwise the API returns an error: “Using the offset and limit parameters, you can get up to 1000 businesses from this endpoint if there are more than 1000 results. If you request a page out of this 1000 business limit, this endpoint will return an error”.
+Other patterns are also possible. For example, in [the Yelp API]([https://](https://www.yelp.com/developers/documentation/v3/business_search)), when searching for businesses, the sum of `limit + offset` (parameters for paginating the results) must be less than or equal to 1000, otherwise the API returns an error: “Using the `offset` and `limit` parameters, you can get up to 1000 businesses from this endpoint if there are more than 1000 results. If you request a page out of this 1000 business limit, this endpoint will return an error”.
+
+{{< details "IDL example" >}}
+
+```markdown
+limit + offset <= 1000
+```
+
+{{< /details >}}
 
 ### 7. Complex
 
@@ -174,43 +136,3 @@ Some of these dependencies are more common than others. For example, Requires an
       <img src="https://miro.medium.com/max/1400/1*C_JU_DU3V90_ZWNHrhcmLw.png" alt="idl" >
 </div>
 Frequency of the dependencies according to the number of occurrences and the number of APIs (out of 40) presenting them.
-
-### Tutorial
-
-{{< alert icon="👉" text="The Tutorial is intended for novice to intermediate users." />}}
-
-Step-by-step instructions on how to start a new Doks project. [Tutorial →](https://getdoks.org/tutorial/introduction/)
-
-### Quick Start
-
-{{< alert icon="👉" text="The Quick Start is intended for intermediate to advanced users." />}}
-
-One page summary of how to start a new Doks project. [Quick Start →]({{< relref "quick-start" >}})
-
-## Go further
-
-Recipes, Reference Guides, Extensions, and Showcase.
-
-### Recipes
-
-Get instructions on how to accomplish common tasks with Doks. [Recipes →](https://getdoks.org/docs/recipes/project-configuration/)
-
-### Reference Guides
-
-Learn how to customize Doks to fully make it your own. [Reference Guides →](https://getdoks.org/docs/reference-guides/security/)
-
-### Extensions
-
-Get instructions on how to add even more to Doks. [Extensions →](https://getdoks.org/docs/extensions/breadcrumb-navigation/)
-
-### Showcase
-
-See what others have build with Doks. [Showcase →](https://getdoks.org/showcase/electric-blocks/)
-
-## Contributing
-
-Find out how to contribute to Doks. [Contributing →](https://getdoks.org/docs/contributing/how-to-contribute/)
-
-## Help
-
-Get help on Doks. [Help →]({{< relref "how-to-update" >}})
