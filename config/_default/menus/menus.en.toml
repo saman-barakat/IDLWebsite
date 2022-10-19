@@ -2,7 +2,7 @@
   name = "IDL"
   weight = 10
   identifier = "idl"
-  url = "/docs/idl/"
+  url = "/IDLWebsite/"
 
  [[publications]]
   name = "Publications"
@@ -16,11 +16,6 @@
 # url = "/docs/1.0/idl/introduction/"
   weight = 10
 
-# [[main]]
-#   name = "Tutorial"
-#   url = "/tutorial/lorem/ipsum/"
-#   weight = 15
-
 [[main]]
   name = "Publications"
   url = "/publications/"
@@ -30,6 +25,11 @@
   name = "Team"
   url = "/team/"
   weight = 20
+
+[[main]]
+name = "Playground"
+url = "https://idlanalyzer.herokuapp.com/"
+weight = 25
 
 #[[main]]
 #  name = "Blog"
