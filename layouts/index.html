@@ -59,7 +59,49 @@
         <p class="h2">IDL4OAS</p>
         <p>IDL dependencies can be straightforwardly specified in OAS specifications using <b>IDL4OAS</b>IDL4OAS, an OAS extension. You just need to include the keyword <b>x-dependencies</b> at the operation level, and include the list of dependencies as an array.</p>
         <div>
-          <img class="img-fluid" src="IDL4OAS720x500.webp" alt="IDL4OAS">
+          <img class="img-fluid" src="https://raw.githubusercontent.com/saman-barakat/IDLWebsite/master/assets/images/IDL4OAS720x500.webp" alt="IDL4OAS">
+          </div>
+      </div>
+      <div class="col-lg-6">
+         
+        <pre>
+          <code>
+          paths:
+            /example/route:
+              get:
+                operationId: exampleOperation
+                parameters:
+                  - in: query
+                    type: boolean
+                    required: false
+                    name: p1
+                  - in: query
+                    type: integer
+                    required: false
+                    name: p2
+                  - in: query
+                    type: string
+                    required: false
+                    name: p3
+                x-dependencies:
+                  - Or(p1, p2, p3);
+                  - IF p1==true THEN p2;
+          </code>
+        </pre>
+         
+      </div>
+    </div>
+  </div>
+</section>
+<br>
+<section class="section section-sm">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 justify-content-center text-center">
+        <p class="h2">Code Generation</p>
+        <p>IDL dependencies can be straightforwardly specified in OAS specifications using <b>IDL4OAS</b>IDL4OAS, an OAS extension. You just need to include the keyword <b>x-dependencies</b> at the operation level, and include the list of dependencies as an array.</p>
+        <div>
+          <img class="img-fluid" src="https://raw.githubusercontent.com/saman-barakat/IDLWebsite/master/assets/images/CodeGeneration.webp" alt="IDL4OAS">
           </div>
       </div>
       <div class="col-lg-6">
