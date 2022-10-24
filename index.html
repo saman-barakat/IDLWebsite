@@ -24,30 +24,7 @@
                   - Or(p1, p2, p3);
                   - IF p1==true THEN p2;
           </code>
-        </pre></div></div></div></section><br><section class="section section-sm"><div class=container><div class="row justify-content-center"><div class="col-lg-6 justify-content-center text-center"><p class=h2>Code Generation</p><p>IDL dependencies can be straightforwardly specified in OAS specifications using <b>IDL4OAS</b>IDL4OAS, an OAS extension. You just need to include the keyword <b>x-dependencies</b> at the operation level, and include the list of dependencies as an array.</p><div><img class=img-fluid src=https://raw.githubusercontent.com/saman-barakat/IDLWebsite/master/assets/images/CodeGeneration.webp alt=IDL4OAS></div></div><div class=col-lg-6><pre>
-          <code>
-          paths:
-            /example/route:
-              get:
-                operationId: exampleOperation
-                parameters:
-                  - in: query
-                    type: boolean
-                    required: false
-                    name: p1
-                  - in: query
-                    type: integer
-                    required: false
-                    name: p2
-                  - in: query
-                    type: string
-                    required: false
-                    name: p3
-                x-dependencies:
-                  - Or(p1, p2, p3);
-                  - IF p1==true THEN p2;
-          </code>
-        </pre></div></div></div></section><section class="section section-sm container-fluid"><div class="row justify-content-center text-center"><div class=col-lg-9></div></div></section><footer class="footer text-muted"><div class=container-xxl><div class=row><div class="col-lg-8 order-last order-lg-first"><ul class=list-inline><li class=list-inline-item>Powered by <a class=text-muted href=https://www.netlify.com/>Netlify</a>, <a class=text-muted href=https://gohugo.io/>Hugo</a>, and <a class=text-muted href=https://getdoks.org/>Doks</a></li></ul></div><div class="col-lg-8 order-first order-lg-last text-lg-end"><ul class=list-inline></ul></div></div></div></footer><script src=https://saman-barakat.github.io/IDLWebsite/js/bootstrap.min.87685cf4e6585276ff9e7b5d0b97e792615af6921e77821315d1ca7c5511ac2f30667e16c0d031e680ca8b57f63f6c0f6c4a232da777cce474b501ed81e090a9.js integrity="sha512-h2hc9OZYUnb/nntdC5fnkmFa9pIed4ITFdHKfFURrC8wZn4WwNAx5oDKi1f2P2wPbEojLad3zOR0tQHtgeCQqQ==" crossorigin=anonymous defer></script>
+        </pre></div></div></div></section><br><section class="section section-sm"><div class=container><div class="row justify-content-center justify-content-center text-center"><div class=col-lg-6><p class=h2>Code Generation</p><p>IDL dependencies can be straightforwardly specified in OAS specifications using <b>IDL4OAS</b>IDL4OAS, an OAS extension. You just need to include the keyword <b>x-dependencies</b> at the operation level, and include the list of dependencies as an array.</p></div><div class=col-lg-6><img class=img-fluid src=https://raw.githubusercontent.com/saman-barakat/IDLWebsite/master/assets/images/CodeGeneration.webp alt=IDL4OAS></div></div></div></section><section class="section section-sm"><div class=container><div class="row justify-content-center justify-content-center text-center"><div class=col-lg-6><img class=img-fluid src=https://raw.githubusercontent.com/saman-barakat/IDLWebsite/master/assets/images/CodeGeneration.webp alt=IDL4OAS></div><div class=col-lg-6><img class=img-fluid src=https://raw.githubusercontent.com/saman-barakat/IDLWebsite/master/assets/images/CodeGeneration.webp alt=IDL4OAS></div></div></div></section><section class="section section-sm container-fluid"><div class="row justify-content-center text-center"><div class=col-lg-9></div></div></section><footer class="footer text-muted"><div class=container-xxl><div class=row><div class="col-lg-8 order-last order-lg-first"><ul class=list-inline><li class=list-inline-item>Powered by <a class=text-muted href=https://www.netlify.com/>Netlify</a>, <a class=text-muted href=https://gohugo.io/>Hugo</a>, and <a class=text-muted href=https://getdoks.org/>Doks</a></li></ul></div><div class="col-lg-8 order-first order-lg-last text-lg-end"><ul class=list-inline></ul></div></div></div></footer><script src=https://saman-barakat.github.io/IDLWebsite/js/bootstrap.min.87685cf4e6585276ff9e7b5d0b97e792615af6921e77821315d1ca7c5511ac2f30667e16c0d031e680ca8b57f63f6c0f6c4a232da777cce474b501ed81e090a9.js integrity="sha512-h2hc9OZYUnb/nntdC5fnkmFa9pIed4ITFdHKfFURrC8wZn4WwNAx5oDKi1f2P2wPbEojLad3zOR0tQHtgeCQqQ==" crossorigin=anonymous defer></script>
 <script src=https://saman-barakat.github.io/IDLWebsite/js/highlight.min.56a414730f1135fe77b5ea30bf74a2cc4101a6f386e85e5b789c800570cc33d33054000f45932c053a59b41018f72687867254a80e1b9710671852492533162f.js integrity="sha512-VqQUcw8RNf53teowv3SizEEBpvOG6F5beJyABXDMM9MwVAAPRZMsBTpZtBAY9yaHhnJUqA4blxBnGFJJJTMWLw==" crossorigin=anonymous defer></script>
 <script src=https://saman-barakat.github.io/IDLWebsite/main.min.162c56a0426544de0d010e66c56e321579655c400c9aae06a6823e7682de379adadf2165bd416fea191e4e7e410fbf1fd2c35a759aa43ff2e3787067669bf81b.js integrity="sha512-FixWoEJlRN4NAQ5mxW4yFXllXEAMmq4GpoI+doLeN5ra3yFlvUFv6hkeTn5BD78f0sNadZqkP/LjeHBnZpv4Gw==" crossorigin=anonymous defer></script>
 <script src=https://saman-barakat.github.io/IDLWebsite/index.min.9c9a668332c0c170552cdf6fc8245056169fa919d31a8d2cd9e6abb94a85d5907773c6477d042c2f92f7f1c6348d9b58d88c24af1ccbe2221020800abbde2905.js integrity="sha512-nJpmgzLAwXBVLN9vyCRQVhafqRnTGo0s2earuUqF1ZB3c8ZHfQQsL5L38cY0jZtY2IwkrxzL4iIQIIAKu94pBQ==" crossorigin=anonymous defer></script></body></html>
