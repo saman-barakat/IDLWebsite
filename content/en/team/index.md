@@ -8,7 +8,6 @@ images: []
 ---
  
 <div class="row justify-content-center text-center">
-
   <div class="column">
     <div class="card">
       <img class="rounded img-thumbnail" src="./imgs/saman.jpg" alt="John">
@@ -17,13 +16,12 @@ images: []
         <p class="title">PhD student</p>
         <p><a class="btn btn-primary button" href="#" role="button" target="_blank">Contact</a></p>
       </div>
-      
-</div>
-<div class="progress" style="height:2px">
-  <div class="progress-bar btn-primary" style="width:100%;height:2px"></div>
-</div>
+    </div>
+    <div class="progress" style="height:2px">
+      <div class="progress-bar btn-primary" style="width:100%;height:2px"></div>
+    </div>
   </div>
-
+  
   <div class="column">
     <div class="card">
       <img  class="rounded img-thumbnail" src="./imgs/alberto.png" alt="Alberto Martin" >
