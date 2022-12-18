@@ -132,9 +132,14 @@ This pattern is simply a combination of two or more of the previous patterns. Ba
 
 ## Some stats
 
-Some of these dependencies are more common than others. For example, Requires and ZeroOrOne dependencies are very recurrent across the APIs analyzed in our study [1], while Or and Complex are not so much. See the following charts for a summary.
+Some of these dependencies are more common than others. For example, Requires and ZeroOrOne dependencies are very recurrent across the APIs analyzed in our study, while Or and Complex are not so much. See the following charts for a summary.
 
 <div class="card">
       <img src="https://miro.medium.com/max/1400/1*C_JU_DU3V90_ZWNHrhcmLw.png" alt="idl" >
 </div>
 Frequency of the dependencies according to the number of occurrences and the number of APIs (out of 40) presenting them.
+
+<br/>
+
+[1] Martin-Lopez, A., Segura, S., Ruiz-Cort´es, A.: A catalogue of inter-parameter dependencies in restful web apis. In: Yangui, S., Bouassida Rodriguez, I., Drira, K., Tari, Z. (eds.) Service-Oriented Computing. pp. 399–414. Springer International
+Publishing, Cham (2019)
