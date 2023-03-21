@@ -1,156 +1,135 @@
-<p align="center">
-  <a href="https://getdoks.org/">
-    <img alt="Doks" src="https://doks.netlify.app/logo-doks.svg" width="60">
-  </a>
-</p>
+# IDL: Inter-parameter Dependency Language
 
-<h1 align="center">
-  Doks
-</h1>
+Inter-Parameter Dependency Language (IDL) is a textual domain-specific language for the specification of dependencies among input parameters in web APIs.
+IDL is designed to express the seven types of inter-parameter dependencies identified on real-world APIs, including (**Requires**, **Or**, **OnlyOne**, **AllOrNone**, **ZeroOrOne**, **Arithmetic/Relational**, **Complex**).
 
-<h3 align="center">
-  Doks Child Theme
-</h3>
+## Index:
 
-<p align="center">
-  Doks is a Hugo theme for building secure, fast, and SEO-ready documentation websites, which you can easily update and customize.
-</p>
+1. [Catalogue of inter-parameter dependencies](#catalogue-of-inter-parameter-dependencies)
+2. [How to use IDL?](#how-to-use-idl)
+3. [IDL grammar](#idl-grammar)
+4. [IDL Editor](#idl-editor)
 
-<p align="center">
-  <a href="https://github.com/h-enk/doks-child-theme/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/h-enk/doks-child-theme?style=flat-square" alt="GitHub">
-  </a>
-  <a href="https://github.com/h-enk/doks-child-theme/releases">
-    <img src="https://img.shields.io/github/v/release/h-enk/doks-child-theme?include_prereleases&style=flat-square"alt="GitHub release (latest SemVer including pre-releases)">
-  </a>
-  <a href="https://github.com/h-enk/doks-child-theme/actions/workflows/codeql-analysis.yml">
-    <img src="https://img.shields.io/github/workflow/status/h-enk/doks-child-theme/CodeQL/master?style=flat-square" alt="GitHub Workflow Status (branch)">
-  </a>
-  <a href="https://app.netlify.com/sites/hyas-child-theme/deploys">
-    <img src="https://img.shields.io/netlify/75395a37-8537-4410-a8c3-d56bf27ec963?style=flat-square" alt="Netlify">
-  </a>
-</p>
 
-![Doks — Modern Documentation Theme](https://raw.githubusercontent.com/h-enk/doks/master/images/doks.png)
+## Catalogue of inter-parameter dependencies:
 
-## Demo
+* **Requires:** This type of dependency is expressed as **“IF predicate THEN predicate;”**, where the first predicate is the condition and the second is the consequence. 
+  * Example: **[PayPal API - Create invoice](https://developer.paypal.com/docs/api/invoicing/v1/#invoices_create)**
 
-- [doks-child-theme.netlify.app](https://doks-child-theme.netlify.app/)
+        IF custom.label THEN custom.amount;
+        IF minimum_amount_due THEN allow_partial_payment==true;
 
-## Why Doks?
+* **Or:** This type of dependency is expressed using the keyword **“Or”** followed by a list of two or more predicates placed inside parentheses: **“Or(predicate, predicate [, ...]);”**. The dependency is satisfied if at least one of the predicates evaluates to true.
+  * Example: **[Reddit API - Upload subreddit image](https://www.reddit.com/dev/api#POST_api_upload_sr_img)**
 
-Nine main reasons why you should use Doks:
+        IF upload_type=='img' THEN name;
+        Or(header, upload_type);
 
-1. __Security aware__. Get A+ scores on [Mozilla Observatory](https://observatory.mozilla.org/analyze/doks.netlify.app) out of the box. Easily change the default Security Headers to suit your needs.
+* **OnlyOne:** These dependencies are specified using the keyword **“OnlyOne”** followed by a list of two or more predicates placed inside parentheses: **“OnlyOne(predicate, predicate [, ...]);”**. The dependency is satisfied if one, and only one of the predicates evaluates to true.
+  * Example: **[Stripe API - Create coupon](https://stripe.com/docs/api/coupons/create)**
+  
+        OnlyOne(amount_off, percent_off);
+        IF amount_off THEN currency;
+        AllOrNone(duration=='repeating', duration_in_months);
 
-2. __Fast by default__. Get 100 scores on [Google Lighthouse](https://googlechrome.github.io/lighthouse/viewer/?gist=59aafe464a68f8bc30b8e9a636d5b053) by default. Doks removes unused css, prefetches links, and lazy loads images.
+* **AllOrNone:** This type of dependency is specified using the keyword **“AllOrNone”** followed by a list of two or more predicates placed inside parentheses: **“AllOrNone(predicate, predicate [, ...]);”**. The dependency is satisfied if either all the predicates evaluate to true, or all of them evaluate to false.
+  * Example: **[Napster API - Get favorites](https://developer.prod.napster.com/#member-favorites)**
 
-3. __SEO-ready__. Use sensible defaults for structured data, open graph, and Twitter cards. Or easily change the SEO settings to your liking.
+        AllOrNone(rights, filter=='track'|'album');
 
-4. __Development tools__. Code with confidence. Check styles, scripts, and markdown for errors and fix automatically or manually.
+* **ZeroOrOne:** These dependencies are specified using the keyword **“ZeroOrOne”** followed by a list of two or more predicates placed inside parentheses: **“ZeroOrOne(predicate, predicate [, ...]);”**. The dependency is satisfied if none or at most one of the predicates evaluates to true.
+  * Example: **[Github API - Get User Repos](https://docs.github.com/en/rest/repos/repos#list-repositories-for-the-authenticated-user)**
 
-5. __Bootstrap framework__. Build robust, flexible, and intuitive websites with Bootstrap 5. Easily customize your Doks site with the source Sass files.
+        ZeroOrOne(type, visibility);
+        ZeroOrOne(type, affiliation);
 
-6. __Netlify-ready__. Deploy to Netlify with sensible defaults. Easily use Netlify Functions, Netlify Redirects, and Netlify Headers.
+* **Arithmetic/Relational:** Relational dependencies are specified as pairs of parameters joined by any of the following relational operators: ==, !=, <=, <, >= or >. Arithmetic dependencies relate two or more parameters using the operators +, - , *, / followed by a final comparison using a relational operator.
+  * Example: **[Shopify API - Get price rules](https://shopify.dev/api/admin-rest/2022-10/resources/pricerule#index-2020-01)**
 
-7. __Full text search__. Search your Doks site with FlexSearch. Easily customize index settings and search options to your liking.
+        created_at_min <= created_at_max;
+        updated_at_min <= updated_at_max;
+        starts_at_min <= starts_at_max;
+        ends_at_min <= ends_at_max;
+  
+* **Complex:** These dependencies are specified as a combination of the previous ones. As an exception to this rule, predicates cannot include Requires dependencies to avoid over-complicated specifications (such dependencies can be expressed in simpler ways).
 
-8. __Page layouts__. Build pages with a landing page, blog, or documentation layout. Add custom sections and components to suit your needs.
+### More IDL examples
+If you want to see more examples of IDL specifications from real APIs, check [here](es.us.isa.interparamdep/resources/expressiveness_evaluation).
 
-9. __Dark mode__. Switch to a low-light UI with the click of a button. Change colors with variables to match your branding.
+## How to use IDL?
 
-### Other features
+IDL dependencies can be straightforwardly specified in OAS specifications using **IDL4OAS**, an OAS extension. 
+You just need to include the keyword `x-dependencies` at the operation level, and include the list of dependencies as an array. See this example from the search operation from
+the Google Maps Places API extended with IDL4OAS.
 
-- __Multilingual and i18n__ support
-- __Versioning__ documentation support
-- __KaTeX__ math typesetting
-- __Mermaid__ diagrams and visualization
-- __highlight.js__ syntax highlighting
+             paths:
+               /search:
+                 get:
+                 parameters:
+                   - name: radius [...]
+                   - name: rankby [...]
+                   - name: keyword [...]
+                   - name: name [...]
+                   - name: type [...]
+                   - name: minprice [...]
+                   - name: maxprice [...]
+                   - [...]
+                   [...]
+                 x-dependencies:
+                   - ZeroOrOne(radius, rankby=='distance');
+                   - IF rankby=='distance' THEN keyword OR name OR type;
+                   - maxprice >= minprice;
 
-## Requirements
+## IDL grammar
+The following section presents a simplified version of the IDL grammar. The full version is available as a part of the implementation of IDL can be found [here](https://github.com/isa-group/IDL/blob/master/es.us.isa.interparamdep/src/es/us/isa/interparamdep/InterparameterDependenciesLanguage.xtext).
 
-- [Git](https://git-scm.com/) — latest source release
-- [Node.js](https://nodejs.org/) — latest LTS version or newer
+            Model:
+                Dependency*;
+            Dependency:
+                RelationalDependency | ArithmeticDependency |
+                ConditionalDependency | PredefinedDependency;
+            RelationalDependency:
+                Param RelationalOperator Param;
+            ArithmeticDependency:
+                Operation RelationalOperator DOUBLE;
+            Operation:
+                Param OperationContinuation |
+                '(' Operation ')' OperationContinuation?;
+            OperationContinuation:
+                ArithmeticOperator (Param | Operation);
+            ConditionalDependency:
+                'IF' Predicate 'THEN' Predicate;
+            Predicate:
+                Clause ClauseContinuation?;
+            Clause:
+                (Term | RelationalDependency | ArithmeticDependency
+                | PredefinedDependency) | 'NOT'? '(' Predicate ')';
+            Term:
+                'NOT'? (Param | ParamValueRelation);
+            Param:
+                ID | '[' ID ']';
+            ParamValueRelation:
+                Param '==' STRING('|'STRING)* |
+                Param 'LIKE' PATTERN_STRING | Param '==' BOOLEAN |
+                Param RelationalOperator DOUBLE;
+            ClauseContinuation:
+                ('AND' | 'OR') Predicate;
+            PredefinedDependency:
+                'NOT'? ('Or' | 'OnlyOne' | 'AllOrNone' |
+                'ZeroOrOne') '(' Clause (',' Clause)+ ')';
+            RelationalOperator:
+                '<' | '>' | '<=' | '>=' | '==' | '!=';
+            ArithmeticOperator:
+                '+' | '-' | '*' | '/';
 
-<details>
-<summary>Why Node.js?</summary>
+## IDL Editor:
 
-Doks uses npm (included with Node.js) to centralize dependency management, making it [easy to update](https://getdoks.org/docs/help/how-to-update/) resources, build tooling, plugins, and build scripts.
+The IDL is implemented using Xtext, a popular framework for the development of programming languages and DSLs. Xtext takes a grammar as input and generates a complete set of tools as output, including a linker, a compiler, a parser and a fully-fledged editor supporting features such as code completion, type checking, syntax coloring and validation as can be observed in the figure below. For instructions on how to generate the Xtext artifacts and test the DSL, refer to [this tutorial](https://www.eclipse.org/Xtext/documentation/102_domainmodelwalkthrough.html).
 
-</details>
+![IDL Editor](http://idlanalysis.com/wp-content/uploads/2021/11/editor.png)
 
-## Get started
+### Things to notice
+- The project containing the grammar definition and all language-specific components (parser, lexer, linker, validation, etc.) is ```'es.us.isa.interparamdep'```.
+- For instructions on how to generate the Xtext artifacts and test the DSL, refer to [this tutorial](https://www.eclipse.org/Xtext/documentation/102_domainmodelwalkthrough.html).
 
-Start a new Doks project in three steps:
 
-### 1. Create a new site
-
-Doks is available as a child theme and a starter theme.
-
-#### Child theme
-
-- Intended for novice to intermediate users
-- Intended for minor customizations
-- [Easily update npm packages](https://getdoks.org/docs/help/how-to-update/) — __including__ [Doks](https://www.npmjs.com/package/@hyas/doks)
-
-```bash
-git clone https://github.com/h-enk/doks-child-theme.git my-doks-site && cd my-doks-site
-```
-
-#### Starter theme
-
-- Intended for intermediate to advanced users
-- Intended for major customizations
-- [Easily update npm packages](https://getdoks.org/docs/help/how-to-update/)
-
-```bash
-git clone https://github.com/h-enk/doks.git my-doks-site && cd my-doks-site
-```
-
-<details>
-<summary>Help me choose</summary>
-
-Not sure which one is for you? Pick the child theme.
-
-</details>
-
-### 2. Install dependencies
-
-```bash
-npm install
-```
-
-### 3. Start development server
-
-```bash
-npm run start
-```
-
-## Other commands
-
-Doks comes with [commands](https://getdoks.org/docs/prologue/commands/) for common tasks.
-
-## Documentation
-
-- [Netlify](https://docs.netlify.com/)
-- [Hugo](https://gohugo.io/documentation/)
-- [Doks](https://getdoks.org/)
-
-## Communities
-
-- [Netlify Community](https://community.netlify.com/)
-- [Hugo Forums](https://discourse.gohugo.io/)
-- [Doks Discussions](https://github.com/h-enk/doks/discussions)
-
-## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
-
-[![OC sponsor 0](https://opencollective.com/doks/tiers/sponsor/0/avatar.svg)](https://opencollective.com/doks/tiers/sponsor/0/website)
-[![OC sponsor 1](https://opencollective.com/doks/tiers/sponsor/1/avatar.svg)](https://opencollective.com/doks/tiers/sponsor/1/website)
-
-## Backers
-
-Support this project by becoming a backer. Your avatar will show up here.
-
-[![Backers](https://opencollective.com/doks/tiers/backer.svg?49741992)](https://opencollective.com/doks)
